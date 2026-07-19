@@ -36,7 +36,12 @@ body{font-family:'Poppins',sans-serif;background:var(--rosa-pastel);background-i
 .cuenta-info{background:linear-gradient(135deg,var(--rosa) 0%,var(--rosa-claro) 100%);color:var(--blanco);border-radius:18px;padding:18px;margin:15px 0;text-align:left}
 .cuenta-info h4{font-size:1.1em;margin-bottom:8px}
 .cuenta-info p{font-size:0.88em;line-height:1.7}
-.btn-wsp{display:block;text-align:center;background:var(--rosa);color:var(--blanco);padding:14px;border-radius:50px;text-decoration:none;font-weight:700;font-size:1.1em;margin-top:15px}
+.btn-wsp{display:block;text-align:center;background:var(--rosa);color:var(--blanco);padding:14px;border-radius:50px;text-decoration:none;font-weight:700;font-size:1.1em;margin-top:10px}
+.btn-copiar{background:#25D366;color:var(--blanco);border:none;width:100%;padding:14px;border-radius:15px;font-weight:700;font-size:1em;margin-top:10px;cursor:pointer}
+.btn-copiar:active{background:#1DA851}
+
+.toast{display:none;position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--rosa);color:var(--blanco);padding:12px 20px;border-radius:50px;font-weight:600;z-index:1000;animation:fadeInOut 2s}
+@keyframes fadeInOut{0%{opacity:0} 20%{opacity:1} 80%{opacity:1} 100%{opacity:0}}
 
 .note{background:var(--rosa-pastel);border-left:4px solid var(--rosa);padding:12px;border-radius:10px;font-size:0.85em;margin-top:15px}
 .footer{text-align:center;padding:25px;color:var(--rosa);font-weight:600}
@@ -127,20 +132,24 @@ body{font-family:'Poppins',sans-serif;background:var(--rosa-pastel);background-i
     <h3 id="tituloCuenta">Datos de Pago 💗</h3>
     <p style="text-align:center;margin-bottom:10px;font-weight:600" id="productoEnCuenta"></p>
     <div class="cuenta-info" id="infoCuenta"></div>
+    <button class="btn-copiar" onclick="copiarDatos()">📋 Copiar Datos</button>
     <a id="btnWhatsapp" class="btn-wsp">Ya pagué, enviar captura 💌</a>
     <button class="metodo-btn close-btn" onclick="cerrarPopup('popupCuenta')">Cerrar</button>
   </div>
 </div>
 
+<div class="toast" id="toast">¡Datos copiados! 💗</div>
+
 <script>
 let productoActual = "";
+let datosParaCopiar = "";
 const cuentas = {
-  "PREX": {titulo:"🌸 PAGAR CON PREX", info:`<b>Titular:</b> Mabel Antonia Sepúlveda Reyes<br><b>RUT:</b> 220142558<br><b>Cuenta Vista:</b> 13531181<br><b>Correo:</b> antitoo.j23@gmail.com`},
-  "BANCO ESTADO": {titulo:"🌸 PAGAR CON BANCO ESTADO", info:`<b>Titular:</b> MABEL ANTONIA SEPULVEDA REYES<br><b>RUT:</b> 22014255-8<br><b>CuentaRUT:</b> 22014255`},
-  "MERCADO PAGO": {titulo:"🌸 PAGAR CON MERCADO PAGO", info:`<b>Titular:</b> Mabel Antonia Sepúlveda Reyes<br><b>RUT:</b> 220142558<br><b>Cuenta:</b> 1066938704<br><b>Correo:</b> antitoo.sr@gmail.com`},
-  "GLOBAL66": {titulo:"🌸 PAGAR CON GLOBAL66", info:`<b>Titular:</b> Mabel Antonia Sepulveda Reyes<br><b>RUT:</b> 220142558<br><b>Usuario:</b> @ANTSEP1000<br><b>Cuenta:</b> 12972458`},
-  "YAPE": {titulo:"🌸 PAGAR CON YAPE", info:`Envíame un WhatsApp y te doy el número de Yape 💗`},
-  "ASTROPAY": {titulo:"🌸 PAGAR CON ASTROPAY", info:`Envíame un WhatsApp y te doy los datos de AstroPay 💗`}
+  "PREX": {titulo:"🌸 PAGAR CON PREX", info:`<b>Titular:</b> Mabel Antonia Sepúlveda Reyes<br><b>RUT:</b> 220142558<br><b>Cuenta Vista:</b> 13531181<br><b>Correo:</b> antitoo.j23@gmail.com`, texto:`Titular: Mabel Antonia Sepúlveda Reyes\nRUT: 220142558\nCuenta Vista: 13531181\nCorreo: antitoo.j23@gmail.com`},
+  "BANCO ESTADO": {titulo:"🌸 PAGAR CON BANCO ESTADO", info:`<b>Titular:</b> MABEL ANTONIA SEPULVEDA REYES<br><b>RUT:</b> 22014255-8<br><b>CuentaRUT:</b> 22014255`, texto:`Titular: MABEL ANTONIA SEPULVEDA REYES\nRUT: 22014255-8\nCuentaRUT: 22014255`},
+  "MERCADO PAGO": {titulo:"🌸 PAGAR CON MERCADO PAGO", info:`<b>Titular:</b> Mabel Antonia Sepúlveda Reyes<br><b>RUT:</b> 220142558<br><b>Cuenta:</b> 1066938704<br><b>Correo:</b> antitoo.sr@gmail.com`, texto:`Titular: Mabel Antonia Sepúlveda Reyes\nRUT: 220142558\nCuenta: 1066938704\nCorreo: antitoo.sr@gmail.com`},
+  "GLOBAL66": {titulo:"🌸 PAGAR CON GLOBAL66", info:`<b>Titular:</b> Mabel Antonia Sepulveda Reyes<br><b>RUT:</b> 220142558<br><b>Usuario:</b> @ANTSEP1000<br><b>Cuenta:</b> 12972458`, texto:`Titular: Mabel Antonia Sepulveda Reyes\nRUT: 220142558\nUsuario: @ANTSEP1000\nCuenta: 12972458`},
+  "YAPE": {titulo:"🌸 PAGAR CON YAPE", info:`Envíame un WhatsApp y te doy el número de Yape 💗`, texto:`Solicitar número de Yape por WhatsApp`},
+  "ASTROPAY": {titulo:"🌸 PAGAR CON ASTROPAY", info:`Envíame un WhatsApp y te doy los datos de AstroPay 💗`, texto:`Solicitar datos de AstroPay por WhatsApp`}
 };
 
 function abrirPopupMetodo(producto){
@@ -150,6 +159,7 @@ function abrirPopupMetodo(producto){
 }
 function mostrarPopupCuenta(metodo){
   cerrarPopup('popupMetodo');
+  datosParaCopiar = cuentas[metodo].texto;
   document.getElementById("tituloCuenta").innerText = cuentas[metodo].titulo + " 💗";
   document.getElementById("productoEnCuenta").innerText = productoActual;
   document.getElementById("infoCuenta").innerHTML = cuentas[metodo].info;
@@ -158,6 +168,13 @@ function mostrarPopupCuenta(metodo){
 }
 function cerrarPopup(id){
   document.getElementById(id).style.display = "none";
+}
+function copiarDatos(){
+  navigator.clipboard.writeText(datosParaCopiar).then(() => {
+    const toast = document.getElementById("toast");
+    toast.style.display = "block";
+    setTimeout(() => {toast.style.display = "none";}, 2000);
+  });
 }
 window.onclick = function(event) {
   if (event.target.classList.contains('modal')) {event.target.style.display = "none";}
