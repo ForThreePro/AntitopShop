@@ -4,91 +4,101 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ANTITOP DZN 💗 Tiendita Rosita</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap');
-
+:root{
+  --rosa:#FF4FA3;--rosa-claro:#FFB6D9;--rosa-pastel:#FFF0F6;
+  --blanco:#FFFFFF;--texto:#5A3A4A;
+}
 *{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-  font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#FFF0F6 0%,#FFB6D9 100%);
-  color:#5A3A4A;
-  overflow-x:hidden;
+  font-family:'Poppins',sans-serif;background:var(--rosa-pastel);
+  background-image: radial-gradient(var(--rosa-claro) 1px, transparent 1px);
+  background-size: 20px 20px;color:var(--texto);
 }
-.hearts{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  pointer-events:none;z-index:0;
-}
-.heart{
-  position:absolute;color:#FF4FA3;animation:fall 8s linear infinite;opacity:0.3
-}
-@keyframes fall{
- 0%{transform:translateY(-10vh) rotate(0deg)}
- 100%{transform:translateY(110vh) rotate(360deg)}
-}
+.container{max-width:850px;margin:0 auto;padding:15px}
 
-.container{
-  max-width:800px;margin:0 auto;padding:20px;position:relative;z-index:1
-}
 .header{
-  text-align:center;padding:30px 20px;
-  background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);
-  border-radius:25px;border:2px solid #FFB6D9;margin-bottom:25px;
-  box-shadow:0 8px 25px rgba(255,79,163,0.15)
+  text-align:center;padding:35px 20px;margin:20px 0;
+  background:linear-gradient(135deg,var(--rosa) 0%,var(--rosa-claro) 100%);
+  border-radius:30px;color:var(--blanco);
+  box-shadow:0 10px 30px rgba(255,79,163,0.25)
 }
-.header h1{
-  font-family:'Dancing Script',cursive;font-size:2.8em;color:#FF4FA3;margin-bottom:5px
+.header h1{font-family:'Dancing Script',cursive;font-size:3em;text-shadow:0 2px 10px rgba(0,0,0,0.1)}
+.header p{font-weight:600;opacity:0.95}
+
+.nav{
+  display:flex;gap:10px;overflow-x:auto;padding:10px 0;margin-bottom:20px;scrollbar-width:none
 }
-.header p{color:#8A5A6E;font-weight:600}
+.nav::-webkit-scrollbar{display:none}
+.nav a{
+  flex-shrink:0;background:var(--blanco);color:var(--rosa);padding:10px 18px;
+  border-radius:50px;text-decoration:none;font-weight:600;font-size:0.9em;
+  border:2px solid var(--rosa-claro)
+}
+.nav a:active{background:var(--rosa);color:var(--blanco)}
 
 .section{
-  background:rgba(255,255,0.8);backdrop-filter:blur(10px);
-  border-radius:20px;padding:25px;margin-bottom:20px;
-  border:2px solid #FFB6D9;box-shadow:0 5px 20px rgba(255,79,163,0.1)
+  background:var(--blanco);border-radius:25px;padding:25px;margin-bottom:20px;
+  border:2px solid var(--rosa-claro);box-shadow:0 5px 15px rgba(255,79,163,0.08)
 }
 .section h2{
-  font-family:'Dancing Script',cursive;font-size:2em;color:#FF4FA3;text-align:center;margin-bottom:15px
+  font-family:'Dancing Script',cursive;font-size:2.2em;color:var(--rosa);
+  text-align:center;margin-bottom:20px
 }
-.item{
-  display:flex;justify-content:space-between;padding:10px 0;
-  border-bottom:1px dashed #FFB6D9;font-size:0.95em
-}
-.item:last-child{border:none}
-.price{color:#FF4FA3;font-weight:700}
 
+.product-card{
+  background:linear-gradient(135deg,var(--rosa-pastel) 0%,var(--blanco) 100%);
+  padding:15px;border-radius:18px;border:2px solid var(--rosa-claro);
+  margin-bottom:12px
+}
+.product-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.product-name{font-weight:600;font-size:0.95em}
+.product-price{color:var(--rosa);font-weight:700;font-size:1.1em}
+.btn-comprar{
+  width:100%;background:var(--rosa);color:var(--blanco);border:none;
+  padding:12px;border-radius:15px;font-weight:700;font-size:1em;cursor:pointer;
+  transition:0.2s
+}
+.btn-comprar:active{transform:scale(0.97);background:#D63384}
+
+.modal{
+  display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.5);z-index:999;justify-content:center;align-items:center;padding:20px
+}
+.modal-content{
+  background:var(--blanco);border-radius:25px;padding:25px;max-width:400px;width:100%;
+  border:3px solid var(--rosa)
+}
+.modal-content h3{color:var(--rosa);text-align:center;margin-bottom:15px;font-family:'Dancing Script',cursive;font-size:1.8em}
+.metodo-btn{
+  display:block;width:100%;background:var(--rosa-pastel);color:var(--texto);
+  border:2px solid var(--rosa-claro);padding:12px;border-radius:15px;margin:8px 0;
+  text-decoration:none;text-align:center;font-weight:600;cursor:pointer
+}
+.metodo-btn:active{background:var(--rosa);color:var(--blanco)}
+.close-btn{
+  background:#ccc;color:#333;margin-top:10px
+}
+
+.pay-section{background:linear-gradient(135deg,var(--rosa) 0%,var(--rosa-claro) 100%);color:var(--blanco)}
+.pay-section h2{color:var(--blanco)}
 .pay-box{
-  background:linear-gradient(135deg,#FFD6E8 0%,#FFB6D9 100%);
-  border-radius:15px;padding:15px;margin:10px 0;
-  border:1px solid #FF4FA3
+  background:rgba(255,255,255,0.15);backdrop-filter:blur(5px);
+  border-radius:15px;padding:15px;margin:12px 0;border:1px solid rgba(255,255,255,0.3)
 }
-.pay-box h3{color:#D63384;font-size:1.1em;margin-bottom:8px}
-.pay-box p{font-size:0.9em;line-height:1.6}
-
-.btn-wsp{
-  display:block;text-align:center;background:#FF4FA3;color:white;
-  padding:15px;border-radius:50px;text-decoration:none;font-weight:700;
-  font-size:1.1em;margin-top:15px;transition:0.3s;
-  box-shadow:0 5px 15px rgba(255,79,163,0.3)
-}
-.btn-wsp:hover{transform:scale(1.05);background:#D63384}
+.pay-box h3{font-size:1.1em;margin-bottom:8px}
+.pay-box p{font-size:0.88em;line-height:1.6}
 
 .note{
-  background:#FFF0F6;border-left:4px solid #FF4FA3;padding:12px;border-radius:8px;
-  font-size:0.85em;margin-top:15px
+  background:var(--rosa-pastel);border-left:4px solid var(--rosa);padding:12px;
+  border-radius:10px;font-size:0.85em;margin-top:15px
 }
-.footer{
-  text-align:center;padding:20px;color:#8A5A6E;font-size:0.9em
-}
+.footer{text-align:center;padding:25px;color:var(--rosa);font-weight:600}
 </style>
 </head>
 <body>
-
-<div class="hearts">
-  <div class="heart" style="left:10%;animation-delay:0s">💗</div>
-  <div class="heart" style="left:30%;animation-delay:2s">💕</div>
-  <div class="heart" style="left:50%;animation-delay:1s">💗</div>
-  <div class="heart" style="left:70%;animation-delay:3s">💕</div>
-  <div class="heart" style="left:90%;animation-delay:1.5s">💗</div>
-</div>
 
 <div class="container">
   
@@ -97,110 +107,116 @@ body{
     <p>Diseño rosita que enamora ✨</p>
   </div>
 
-  <div class="section">
+  <nav class="nav">
+    <a href="#renovaciones">Renovaciones</a>
+    <a href="#caligraficos">Caligráficos</a>
+    <a href="#bots">Bots</a>
+    <a href="#drive">Drive</a>
+    <a href="#extras">Extras</a>
+    <a href="#pago">Pago</a>
+  </nav>
+
+  <div class="section" id="renovaciones">
     <h2>💗 RENOVACIONES</h2>
-    <div class="item"><span>🌸 Mini</span><span class="price">$3500 🇨🇱</span></div>
-    <div class="item"><span>🌸 Completa</span><span class="price">$4500 🇨🇱</span></div>
-    <div class="item"><span>🌸 Extra Completa</span><span class="price">$5500 🇨🇱</span></div>
+    <div class="product-card">
+      <div class="product-info"><span class="product-name">🌸 Mini</span><span class="product-price">$3500 🇨🇱</span></div>
+      <button class="btn-comprar" onclick="abrirModal('Mini - $3500')">Comprar 💌</button>
+    </div>
+    <div class="product-card">
+      <div class="product-info"><span class="product-name">🌸 Completa</span><span class="product-price">$4500 🇨🇱</span></div>
+      <button class="btn-comprar" onclick="abrirModal('Completa - $4500')">Comprar 💌</button>
+    </div>
+    <div class="product-card">
+      <div class="product-info"><span class="product-name">🌸 Extra Completa</span><span class="product-price">$5500 🇨🇱</span></div>
+      <button class="btn-comprar" onclick="abrirModal('Extra Completa - $5500')">Comprar 💌</button>
+    </div>
   </div>
 
-  <div class="section">
+  <div class="section" id="caligraficos">
     <h2>💗 CALIGRÁFICOS</h2>
-    <div class="item"><span>✨ Simple x1</span><span class="price">$700 🇨🇱</span></div>
-    <div class="item"><span>✨ Con Objeto x1</span><span class="price">$1100 🇨🇱</span></div>
-    <div class="item"><span>✨ Temático x1</span><span class="price">$1500 🇨🇱</span></div>
-    <div class="item"><span>✨ Curvo x1</span><span class="price">$1500 🇨🇱</span></div>
-    <div class="item"><span>✨ Una Letra x1</span><span class="price">$500 🇨🇱</span></div>
+    <div class="product-card"><div class="product-info"><span class="product-name">✨ Simple x1</span><span class="product-price">$700 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('Caligráfico Simple - $700')">Comprar 💌</button></div>
+    <div class="product-card"><div class="product-info"><span class="product-name">✨ Con Objeto x1</span><span class="product-price">$1100 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('Caligráfico con Objeto - $1100')">Comprar 💌</button></div>
+    <div class="product-card"><div class="product-info"><span class="product-name">✨ Temático x1</span><span class="product-price">$1500 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('Caligráfico Temático - $1500')">Comprar 💌</button></div>
+    <div class="product-card"><div class="product-info"><span class="product-name">✨ Curvo x1</span><span class="product-price">$1500 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('Caligráfico Curvo - $1500')">Comprar 💌</button></div>
+    <div class="product-card"><div class="product-info"><span class="product-name">✨ Una Letra x1</span><span class="product-price">$500 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('Caligráfico Una Letra - $500')">Comprar 💌</button></div>
   </div>
 
-  <div class="section">
-    <h2>💗 BOT DE ETIQUETA MENSUAL</h2>
-    <div class="item"><span>🤍 1 Bot</span><span class="price">$1200 🇨🇱</span></div>
-    <div class="item"><span>🤍 3 Bots</span><span class="price">$3500 🇨🇱</span></div>
-    <div class="item"><span>🤍 5 Bots</span><span class="price">$6000 🇨🇱</span></div>
+  <div class="section" id="bots">
+    <h2>💗 BOT DE ETIQUETA</h2>
+    <div class="product-card"><div class="product-info"><span class="product-name">🤍 1 Bot Mensual</span><span class="product-price">$1200 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('1 Bot Mensual - $1200')">Comprar 💌</button></div>
+    <div class="product-card"><div class="product-info"><span class="product-name">🤍 3 Bots Mensual</span><span class="product-price">$3500 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('3 Bots Mensual - $3500')">Comprar 💌</button></div>
+    <div class="product-card"><div class="product-info"><span class="product-name">🤍 5 Bots Mensual</span><span class="product-price">$6000 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('5 Bots Mensual - $6000')">Comprar 💌</button></div>
   </div>
 
-  <div class="section">
-    <h2>💗 DRIVE + MINI TUTOS DZN</h2>
-    <div class="item"><span>🎀 Pago Individual</span><span class="price">$2500 🇨🇱</span></div>
-    <div class="item"><span>🎀 Pago Duo c/u</span><span class="price">$1250 🇨🇱</span></div>
-    <div class="item"><span>🎀 Pago Trio c/u</span><span class="price">$900 🇨🇱</span></div>
+  <div class="section" id="drive">
+    <h2>💗 DRIVE + MINI TUTOS</h2>
+    <div class="product-card"><div class="product-info"><span class="product-name">🎀 Pago Individual</span><span class="product-price">$2500 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('Drive Individual - $2500')">Comprar 💌</button></div>
+    <div class="product-card"><div class="product-info"><span class="product-name">🎀 Pago Duo c/u</span><span class="product-price">$1250 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('Drive Duo - $1250')">Comprar 💌</button></div>
+    <div class="product-card"><div class="product-info"><span class="product-name">🎀 Pago Trio c/u</span><span class="product-price">$900 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('Drive Trio - $900')">Comprar 💌</button></div>
   </div>
 
-  <div class="section">
+  <div class="section" id="extras">
     <h2>💗 VENTAS EXTRAS</h2>
-    <div class="item"><span>🌷 Mosaico Simple</span><span class="price">$1500 🇨🇱</span></div>
-    <div class="item"><span>🌷 Fondo Cali DZN</span><span class="price">$1500 🇨🇱</span></div>
-    <div class="item"><span>🌷 Fondo Historia DZN</span><span class="price">$1600 🇨🇱</span></div>
-    <div class="item"><span>🌷 Destacadas x3</span><span class="price">$600 🇨🇱</span></div>
-    <div class="item"><span>🌷 Destacadas x7</span><span class="price">$1400 🇨🇱</span></div>
-    <div class="item"><span>🌷 Plantillas Basicas x3</span><span class="price">$1900 🇨🇱</span></div>
+    <div class="product-card"><div class="product-info"><span class="product-name">🌷 Mosaico Simple</span><span class="product-price">$1500 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('Mosaico Simple - $1500')">Comprar 💌</button></div>
+    <div class="product-card"><div class="product-info"><span class="product-name">🌷 Fondo Cali DZN</span><span class="product-price">$1500 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('Fondo Cali DZN - $1500')">Comprar 💌</button></div>
+    <div class="product-card"><div class="product-info"><span class="product-name">🌷 Fondo Historia DZN</span><span class="product-price">$1600 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('Fondo Historia DZN - $1600')">Comprar 💌</button></div>
+    <div class="product-card"><div class="product-info"><span class="product-name">🌷 Destacadas x3</span><span class="product-price">$600 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('Destacadas x3 - $600')">Comprar 💌</button></div>
+    <div class="product-card"><div class="product-info"><span class="product-name">🌷 Destacadas x7</span><span class="product-price">$1400 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('Destacadas x7 - $1400')">Comprar 💌</button></div>
+    <div class="product-card"><div class="product-info"><span class="product-name">🌷 Plantillas x3 Team</span><span class="product-price">$1900 🇨🇱</span></div><button class="btn-comprar" onclick="abrirModal('Plantillas x3 - $1900')">Comprar 💌</button></div>
   </div>
 
-  <div class="section">
-    <h2>💕 PÁGAME AQUÍ 💕</h2>
-    
-    <div class="pay-box">
-      <h3>🌸 PREX 🇨🇱🇵🇪🇦🇷🇺🇾</h3>
-      <p><b>Titular:</b> Mabel Antonia Sepúlveda Reyes<br>
-      <b>RUT:</b> 220142558<br>
-      <b>Cuenta Vista:</b> 13531181<br>
-      <b>Correo:</b> antitoo.j23@gmail.com</p>
-    </div>
-
-    <div class="pay-box">
-      <h3>🌸 BANCO ESTADO 🇨🇱</h3>
-      <p><b>Titular:</b> MABEL ANTONIA SEPULVEDA REYES<br>
-      <b>RUT:</b> 22014255-8<br>
-      <b>CuentaRUT:</b> 22014255</p>
-    </div>
-
-    <div class="pay-box">
-      <h3>🌸 MERCADO PAGO 🇨🇱</h3>
-      <p><b>Titular:</b> Mabel Antonia Sepúlveda Reyes<br>
-      <b>RUT:</b> 220142558<br>
-      <b>Cuenta:</b> 1066938704<br>
-      <b>Correo:</b> antitoo.sr@gmail.com</p>
-    </div>
-
-    <div class="pay-box">
-      <h3>🌸 GLOBAL66 🌎</h3>
-      <p><b>Titular:</b> Mabel Antonia Sepulveda Reyes<br>
-      <b>RUT:</b> 220142558<br>
-      <b>Usuario:</b> @ANTSEP1000<br>
-      <b>Cuenta:</b> 12972458</p>
-    </div>
-
-    <div class="pay-box">
-      <h3>🌸 OTROS MÉTODOS</h3>
-      <p><b>YAPE:</b> 🇵🇪<br>
-      <b>ASTROPAY:</b> 🇪🇺🇨🇴🇧🇷</p>
-    </div>
-
-    <div class="note">
-      💗 <b>Importante:</b> 100% pago para comenzar ✨<br>
-      Envía captura al WhatsApp para confirmar tu pedido
-    </div>
+  <div class="section pay-section" id="pago">
+    <h2>💕 DATOS DE PAGO 💕</h2>
+    <div class="pay-box"><h3>🌸 PREX 🇨🇱🇵🇪🇦🇷🇺🇾</h3><p><b>Titular:</b> Mabel Antonia Sepúlveda Reyes<br><b>RUT:</b> 220142558<br><b>Cuenta:</b> 13531181<br><b>Correo:</b> antitoo.j23@gmail.com</p></div>
+    <div class="pay-box"><h3>🌸 BANCO ESTADO 🇨🇱</h3><p><b>Titular:</b> MABEL ANTONIA SEPULVEDA REYES<br><b>RUT:</b> 22014255-8<br><b>CuentaRUT:</b> 22014255</p></div>
+    <div class="pay-box"><h3>🌸 MERCADO PAGO 🇨🇱</h3><p><b>Titular:</b> Mabel Antonia Sepúlveda Reyes<br><b>RUT:</b> 220142558<br><b>Cuenta:</b> 1066938704<br><b>Correo:</b> antitoo.sr@gmail.com</p></div>
+    <div class="pay-box"><h3>🌸 GLOBAL66 🌎</h3><p><b>Titular:</b> Mabel Antonia Sepulveda Reyes<br><b>RUT:</b> 220142558<br><b>Usuario:</b> @ANTSEP1000<br><b>Cuenta:</b> 12972458</p></div>
+    <div class="pay-box"><h3>🌸 OTROS MÉTODOS</h3><p><b>YAPE:</b> 🇵🇪<br><b>ASTROPAY:</b> 🇪🇺🇨🇴🇧🇷</p></div>
+    <div class="note" style="background:rgba(255,255,255,0.2);color:white;border-color:white">💗 <b>Importante:</b> 100% pago para comenzar ✨<br>Envía captura al WhatsApp</div>
   </div>
 
   <div class="section">
     <h2>💗 NOTITAS IMPORTANTES</h2>
-    <div class="note">
-      💕 No trabajo bajo apuros<br>
-      💕 100% pago para comenzar<br>
-      💕 Solo 1 cambio por trabajo<br>
-      💕 No hay reembolsos<br>
-      💕 Avances solo si es necesario
-    </div>
-    <a href="https://wa.me/56920592945" class="btn-wsp">Pídemelo por WhatsApp 💌</a>
+    <div class="note">💕 No trabajo bajo apuros<br>💕 100% pago para comenzar<br>💕 Solo 1 cambio por trabajo<br>💕 No hay reembolsos<br>💕 Avances solo si es necesario</div>
   </div>
 
-  <div class="footer">
-    <p>📷 IG: @antitoop.dzn</p>
-    <p>© 2026 ANTITOP DZN - Hecho con mucho amor 💗</p>
-  </div>
+  <div class="footer"><p>📷 IG: @antitoop.dzn</p><p>© 2026 ANTITOP DZN - Hecho con amor 💗</p></div>
 
 </div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h3>Elige tu método de pago 💗</h3>
+    <p id="productoElegido" style="text-align:center;margin-bottom:15px;font-weight:600"></p>
+    <a class="metodo-btn" onclick="pagar('PREX')">🌸 Pagar con PREX</a>
+    <a class="metodo-btn" onclick="pagar('BANCO ESTADO')">🌸 Pagar con BANCO ESTADO</a>
+    <a class="metodo-btn" onclick="pagar('MERCADO PAGO')">🌸 Pagar con MERCADO PAGO</a>
+    <a class="metodo-btn" onclick="pagar('GLOBAL66')">🌸 Pagar con GLOBAL66</a>
+    <a class="metodo-btn" onclick="pagar('YAPE')">🌸 Pagar con YAPE</a>
+    <a class="metodo-btn" onclick="pagar('ASTROPAY')">🌸 Pagar con ASTROPAY</a>
+    <button class="metodo-btn close-btn" onclick="cerrarModal()">Cancelar</button>
+  </div>
+</div>
+
+<script>
+let productoActual = "";
+function abrirModal(producto){
+  productoActual = producto;
+  document.getElementById("productoElegido").innerText = producto;
+  document.getElementById("modal").style.display = "flex";
+}
+function cerrarModal(){
+  document.getElementById("modal").style.display = "none";
+}
+function pagar(metodo){
+  let mensaje = `Holaa 💗 Quiero comprar:%0A${productoActual}%0A%0AMétodo de pago: ${metodo}%0A%0AEnvío captura apenas pague ✨`;
+  window.open(`https://wa.me/56920592945?text=${mensaje}`, '_blank');
+  cerrarModal();
+}
+window.onclick = function(event) {
+  if (event.target == document.getElementById('modal')) {cerrarModal();}
+}
+</script>
 
 </body>
 </html>
